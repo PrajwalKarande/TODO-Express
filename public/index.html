@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body onload="getTasks()">
+    <div class ="container mx-auto mt-10 p-20 bg-gray-100 rounded shadow-md text-center">
+        <h1 class="text-4xl p-4 font-bold underline">TODO List</h1>
+        <input type="text" id="newTask" placeholder="Add a new task" class="p-2 border border-gray-300 rounded">
+        <button id="add" onclick="addTask()" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        const taskList = document.getElementById('taskList');
+        
+        const getTasks = async ()=>{
+            const response = await fetch('http://localhost:3000/tasks',{
+                method:"GET"
+            })
+
+            const body = await response.json();
+            console.log(body);
+
+            taskList.innerHTML = ""; // Clear the list before adding new tasks
+            for(let i = 0; i < body.length; i++){
+                const li = document.createElement('li');
+                li.innerText = body[i].task;
+                li.className = "p-2 border-b border-gray-300";
+                taskList.appendChild(li);
+            }
+
+        }
+
+        const addTask = async () =>{
+            const newTask = document.getElementById('newTask');
+
+            const response = await fetch('http://localhost:3000/addTask',{
+                method:"POST",
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({task:newTask.value})
+            })
+            newTask.value = ""; // Clear the input field after adding the task
+            getTasks();
+        }
+
+
+    </script>
+</body>
+</html>
