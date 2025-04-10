@@ -1,6 +1,6 @@
 const express = require('express');
 const sql = require('./db.js'); // Import the sql object from db.js
-
+const cors = require('cors'); // Import cors for cross-origin resource sharing
 const app = express();
 
 
