@@ -3,6 +3,13 @@ const sql = require('./db.js'); // Import the sql object from db.js
 
 const app = express();
 
+
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow requests from frontend react
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'],//allowed headers
+}));
+
 const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
