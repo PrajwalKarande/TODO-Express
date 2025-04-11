@@ -5,7 +5,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow requests from frontend react
+    origin: 'https://todo-frontend-sigma-ivory.vercel.app', // Allow requests from frontend react
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'],//allowed headers
 }));
