@@ -17,7 +17,7 @@
         const taskList = document.getElementById('taskList');
         
         const getTasks = async ()=>{
-            const response = await fetch('https://todo-express-fj7x.onrender.com/tasks',{
+            const response = await fetch('https://todo-express-34ij.onrender.com/tasks',{
                 method:"GET"
             })
 
@@ -37,13 +37,15 @@
         const addTask = async () =>{
             const newTask = document.getElementById('newTask');
 
-            const response = await fetch('https://todo-express-fj7x.onrender.com/addTask',{
+            try{const response = await fetch('https://todo-express-34ij.onrender.com/addTask',{
                 method:"POST",
                 headers:{
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({task:newTask.value})
-            })
+            })}catch(error){
+                console.error('Error adding task:', error);
+            }
             newTask.value = ""; // Clear the input field after adding the task
             getTasks();
         }
